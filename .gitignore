@@ -1,0 +1,11 @@
+*.log
+*.fls
+*.synctex.gz
+*.fls
+*.aux
+*.out
+*.fdb_latexmk
+*.sage-*
+*.syncdb
+*.pickle
+*.zip

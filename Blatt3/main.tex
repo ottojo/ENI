@@ -1,0 +1,47 @@
+\documentclass{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage{enumitem}
+\usepackage{float}
+\usepackage{circuitikz}
+\usepackage{todonotes}
+\usepackage{amsmath}
+\usepackage{tikz}
+\usetikzlibrary{shapes, calc, shapes, arrows}
+
+\title{Blatt 3}
+\author{Luca Krüger, Jonas Otto, Jonas Merkle (Gruppe R)}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section{Lernregeln}
+$$E(w,b)=\frac{1}{2}\sum_{\mu=1}^{M}(T_{\mu}-f(wx_{\mu}+b))^2$$
+\begin{enumerate}
+  \item
+        \begin{align*}
+          \nabla E(w,b)=\begin{pmatrix} \dfrac{\strut \partial E}{\strut \partial w} \\ \dfrac{\strut \partial E}{\strut \partial b}\end{pmatrix} = \begin{pmatrix}
+            - \sum_{\mu=1}^{M}(T_{\mu}-f(wx_{\mu}+b)) \cdot \dfrac{\strut \partial f(wx_{\mu}+b)}{\strut \partial w}\cdot x_{\mu} \\
+            - \sum_{\mu=1}^{M}(T_{\mu}-f(wx_{\mu}+b)) \cdot \dfrac{\strut \partial f(wx_{\mu}+b)}{\strut \partial w}\end{pmatrix} \\
+        \end{align*}
+  \item
+        \begin{enumerate}[label=\alph*)]
+          \item inkrementelle Version:
+                \begin{align*}
+                  w(t+1) & =w(t)-\mu(T_{t}-f(wx_{t}+b)) \cdot \dfrac{\strut \partial f(wx_{t}+b)}{\strut \partial w}\cdot x_t \\
+                  b(t+1) & =b(t)-\mu(T_{t}-f(wx_{t}+b)) \cdot \dfrac{\strut \partial f(wx_{t}+b)}{\strut \partial w}
+                \end{align*}
+          \item Batch Version
+                \begin{align*}
+                  w(t+1) & =w(t)+\mu\sum_{\mu=1}^{M}(T_{\mu}-f(wx_{\mu}+b)) \cdot \dfrac{\strut \partial f(wx_{\mu}+b)}{\strut \partial w}\cdot x_{\mu} \\
+                  b(t+1) & =b(t)+\sum_{\mu=1}^{M}(T_{\mu}-f(wx_{\mu}+b)) \cdot \dfrac{\strut \partial f(wx_{\mu}+b)}{\strut \partial w}                 \\
+                         & \text{mit}\ \mu \approx 1/M
+                \end{align*}
+        \end{enumerate}
+  \item
+\end{enumerate}
+
+
+
+\end{document}
