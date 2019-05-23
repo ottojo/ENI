@@ -1,0 +1,155 @@
+\documentclass{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage{enumitem}
+\usepackage{float}
+\usepackage{circuitikz}
+\usepackage{todonotes}
+\usepackage{amsmath}
+\usepackage{tikz}
+\usetikzlibrary{shapes, calc, shapes, arrows}
+
+\title{Blatt 2}
+\author{Luca Krüger, Jonas Otto, Jonas Merkle (Gruppe R)}
+
+\begin{document}
+\maketitle
+
+\section{Boole'sche Funktionen}
+\subsection{}
+\label{gates}
+\begin{enumerate}[label=\alph*)]
+  \item AND-Gatter: \\
+        $w_1=w_2=w_3=1, \theta=3$
+
+  \item OR-Gatter: \\
+        $w_1=w_2=w_3=1, \theta=1$
+\end{enumerate}
+
+
+\subsection{}
+Nein die Darstellung ist nicht eindeutig. Gewichtsvektor und Schwellenwert könnten auch z.B: so gewählt werden:
+\begin{enumerate}[label=\alph*)]
+  \item AND-Gatter:\\
+        $w_1, w_2, w_3$ beliebig, $\theta = \sum\limits_k w_k$
+
+  \item OR-Gatter:\\
+        $w_1=w_2=w_3=w_4, \theta = \min{w_k}$
+\end{enumerate}
+
+
+\subsection{}
+\begin{enumerate}[label=\alph*)]
+  \item Boolsche Funktion
+        \begin{figure}[H]
+          \centering
+          \tikzstyle{inputNode}=[draw,circle,minimum size=10pt,inner sep=0pt]
+          \tikzstyle{stateTransition}=[->, thick]
+          \begin{tikzpicture}
+
+            \node[draw,circle,minimum size=40pt,inner sep=0pt] (s1) at (0,-1) {$\Sigma \geq 1$};
+            \node[draw,circle,minimum size=40pt,inner sep=0pt] (s2) at (3, 0.5) {$\Sigma \geq 2$};
+
+            \node[inputNode] (x1) at (-3, 2) {$\tiny x_1$};
+            \node[inputNode] (x2) at (-3, 0) {$\tiny x_2$};
+            \node[inputNode] (x3) at (-3, -2) {$\tiny x_3$};
+
+            \draw[stateTransition] (x1) to[out=0,in=180] node [midway,above] {$1$} (s2);
+            \draw[stateTransition] (x2) to[out=0,in=150] node [midway,above] {$1$} (s1);
+            \draw[stateTransition] (x3) to[out=0,in=210] node [midway,above] {$1$} (s1);
+            \draw[stateTransition] (s1) to[out=0,in=180] node [midway,below=3pt] {$1$} (s2);
+
+
+            \draw[stateTransition] (s2) -- ++(2,0) node [right=1pt] {$V(\boldsymbol{x})$};
+          \end{tikzpicture}
+          \caption{Aufgabe 2, 1.}
+        \end{figure}
+  \item
+        Mit Gewichten $\boldsymbol{w}=(2\ 1\ 1)$ und Schwellwert $\theta=3$ genügt ein Schwellwertneuron.
+\end{enumerate}
+
+\section{Schwellwertneuronen}
+\subsection{}
+\begin{figure}[H]
+  \centering
+  \tikzstyle{inputNode}=[draw,circle,minimum size=10pt,inner sep=0pt]
+  \tikzstyle{stateTransition}=[->, thick]
+  \begin{tikzpicture}
+
+    \node[draw,circle,minimum size=40pt,inner sep=0pt] (s1) at (0,2) {$\Sigma \geq 0.5$};
+    \node[draw,circle,minimum size=40pt,inner sep=0pt] (s2) at (0,0) {$\Sigma \geq 0.25$};
+    \node[draw,circle,minimum size=40pt,inner sep=0pt] (s3) at (0,-2) {$\Sigma \geq 0.25$};
+
+    \node[inputNode] (x1) at (-2, 2) {$\tiny x_1$};
+    \node[inputNode] (x2) at (-2, 0) {$\tiny x_2$};
+    \node[inputNode] (x3) at (-2, -2) {$\tiny x_3$};
+
+    \draw[stateTransition] (x1) to[out=0,in=180] node [midway, sloped, above] {} (s1);
+    \draw[stateTransition] (x2) to[out=0,in=180] node [midway, sloped, above] {} (s2);
+    \draw[stateTransition] (x3) to[out=0,in=180] node [midway, sloped, above] {} (s3);
+
+    \node[draw,circle,minimum size=40pt,inner sep=0pt] (s4) at (3,0) {$\Sigma \geq 3$};
+
+    \draw[stateTransition] (s1) to[out=0,in=150] node [pos=.7,above=5pt] {$3$} (s4);
+    \draw[stateTransition] (s2) to[out=0,in=180] node [pos=.7,above] {$1$} (s4);
+    \draw[stateTransition] (s3) to[out=0,in=210] node [pos=.7, below=5pt] {$1$} (s4);
+
+    \draw[stateTransition] (s4) -- (5,0) node [right=1pt] {$y$};
+  \end{tikzpicture}
+  \caption{Aufgabe 2, 1.}
+\end{figure}
+
+\subsection{}
+\begin{figure}[H]
+  \centering
+  \tikzstyle{inputNode}=[draw,circle,minimum size=10pt,inner sep=0pt]
+  \tikzstyle{stateTransition}=[->, thick]
+  \begin{tikzpicture}
+
+    \node[draw,circle,minimum size=40pt,inner sep=0pt] (s1) at (0,1) {$\Sigma \geq 1$};
+    \node[draw,circle,minimum size=40pt,inner sep=0pt] (s2) at (0,-1) {$\Sigma \geq -1$};
+    \node[draw,circle,minimum size=40pt,inner sep=0pt] (s3) at (3,0) {$\Sigma \geq 2$};
+
+    \node[inputNode] (x1) at (-3, 2) {$\tiny x_1$};
+    \node[inputNode] (x2) at (-3, 0) {$\tiny x_2$};
+    \node[inputNode] (x3) at (-3, -2) {$\tiny x_3$};
+
+    \draw[stateTransition] (x1) to[out=0,in=150] node [midway, sloped, above] {} (s1);
+    \draw[stateTransition] (x2) to[out=0,in=180] node [midway, sloped, above] {} (s1);
+    \draw[stateTransition] (x3) to[out=0,in=210] node [midway, sloped, above] {} (s1);
+
+    \draw[stateTransition] (x1) to[out=0,in=150] node [pos=.99, above=2pt] {$-1$} (s2);
+    \draw[stateTransition] (x2) to[out=0,in=180] node [pos=.9, above=1pt] {$-1$} (s2);
+    \draw[stateTransition] (x3) to[out=0,in=210] node [pos=.99, below=2pt] {$-1$} (s2);
+
+    \draw[stateTransition] (s1) to[out=0,in=150] node [pos=.7,above=5pt] {$1$} (s3);
+    \draw[stateTransition] (s2) to[out=0,in=210] node [pos=.7,below=5pt] {$1$} (s3);
+
+    \draw[stateTransition] (s3) -- (5,0) node [right=1pt] {$V(\boldsymbol{x})$};
+  \end{tikzpicture}
+  \caption{Aufgabe 2, 2.}
+\end{figure}
+
+\section{Logistisches Neuron}
+\subsection{}
+\begin{enumerate}[label=\alph*)]
+  \item Eine Erhöhung von $w_1$ bewirkt ein schnelleres Ansteigen des Ausgangs gegen 1.
+  \item Bei $w_1 < 0$ strebt der Ausgang gegen 0, statt gegen 1.
+
+  \item
+        \begin{tabular}{rcc}
+          \hline
+                          & $w_1 > 0$     & $w_1 < 0$     \\
+          \hline
+          $b_1\uparrow$   & $\leftarrow$  & $\rightarrow$ \\
+          $b_1\downarrow$ & $\rightarrow$ & $\leftarrow$  \\
+          \hline
+        \end{tabular}
+\end{enumerate}
+
+\subsection{}
+
+$w_1 = 1, w_2 = -1$\\
+$b_1=b_2 = 1$
+
+\end{document}
