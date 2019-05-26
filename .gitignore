@@ -9,3 +9,5 @@
 *.syncdb
 *.pickle
 *.zip
+*.term
+.*
