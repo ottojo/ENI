@@ -8,6 +8,8 @@
 \usepackage{amsmath}
 \usepackage{tikz}
 \usetikzlibrary{shapes, calc, shapes, arrows}
+\usepackage{svg}
+
 
 \title{Blatt 3}
 \author{Luca Krüger, Jonas Otto, Jonas Merkle (Gruppe R)}
@@ -27,40 +29,39 @@ $$E(w,b)=\frac{1}{2}\sum_{\mu=1}^{M}(T_{\mu}-f(wx_{\mu}+b))^2$$
           \end{pmatrix} \\
         \end{align*}
   \item
-        \todo[inline]{Lernrate $\eta$}
         \begin{enumerate}[label=\alph*)]
           \item inkrementelle Version:
-                \todo[inline]{Woher kommt der Faktor $\mu$?}
                 \begin{align*}
-                  w(t+1) & =w(t)-\mu(T_{t}-f(wx_{t}+b)) \cdot \dfrac{\strut \partial f(wx_{t}+b)}{\strut \partial w}\cdot x_t \\
-                  b(t+1) & =b(t)-\mu(T_{t}-f(wx_{t}+b)) \cdot \dfrac{\strut \partial f(wx_{t}+b)}{\strut \partial w}
+                  w(t+1) & =w(t)-\eta(T_{t}-f(wx_{t}+b)) \cdot f'(wx_{t}+b)\cdot x_t \\
+                  b(t+1) & =b(t)-\eta(T_{t}-f(wx_{t}+b)) \cdot f'(wx_{t}+b)
                 \end{align*}
           \item Batch Version:
                 \begin{align*}
-                  w(t+1) & =w(t)+\mu\sum_{\mu=1}^{M}(T_{\mu}-f(wx_{\mu}+b)) \cdot \dfrac{\strut \partial f(wx_{\mu}+b)}{\strut \partial w}\cdot x_{\mu} \\
-                  b(t+1) & =b(t)+\sum_{\mu=1}^{M}(T_{\mu}-f(wx_{\mu}+b)) \cdot \dfrac{\strut \partial f(wx_{\mu}+b)}{\strut \partial w}                 \\
-                         & \text{mit}\ \mu \approx 1/M
+                  w(t+1) & =w(t)+\eta\sum_{\mu=1}^{M}(T_{\mu}-f(wx_{\mu}+b)) \cdot f'(wx_{\mu}+b)\cdot x_{\mu} \\
+                  b(t+1) & =b(t)+\eta\sum_{\mu=1}^{M}(T_{\mu}-f(wx_{\mu}+b)) \cdot f'(wx_{\mu}+b)
                 \end{align*}
         \end{enumerate}
   \item
         \begin{enumerate}[label=\alph*)]
-          \item \todo[inline]{Python verlinken??}
-          \item \todo[inline]{Mathematica Grafik mit Startwerten einfügen}
+          \item (Siehe Jupyter Notebook)
+          \item Negativer Gradient (\textit{blau}) im initialen Punkt $\begin{pmatrix}w(0) \\ b(0)\end{pmatrix} = \begin{pmatrix} -1 \\ 3 \end{pmatrix}$ :
                 \begin{figure}[H]
                   % body of the figure
                   \centering
-                  \includegraphics{initial-error-gradient.pdf}
+                  \includegraphics[width=\textwidth]{initial-error-gradient.pdf}
                   \caption{Gradient bei $t=0$}
                 \end{figure}
 
-          \item
-          \item Der Pfad in Abbildung 3 auf dem Übungsblatt verläuft vom Startpunkt in ein lokales Minimum der Errorfunktion mit hohen Werten für $w$ und $b$.  Problematisch an der Gradienten-Lernregel $E(t)$ ist, dass im allgemeinen gilt $E(t_1)>E(t_2)$ für zwei aufeinanderfolgende Lernschritte $t_1, t_2$ und somit ein Minimum nur in einer lokal monoton fallenden Umgebung des Startpunktes gefunden werden kann. D.h., der Endpunkt des Pfades hängt bei der Lernregel stark von den Anfangswerten ab und ein gefundendes Minimum ist nicht zwangsweise ein globales Minimum der Errorfunktion.
+          \item (Siehe Jupyter Notebook)
+          \item Der Pfad in Abbildung 3 auf dem Übungsblatt verläuft vom Startpunkt in ein lokales Minimum der Errorfunktion mit hohen Werten für $w$ und $b$.  Problematisch an der Gradienten-Lernregel $E(t)$ ist, dass im Allgemeinen gilt $E(t_1)>E(t_2)$ für zwei aufeinanderfolgende Lernschritte $t_1, t_2$ und somit ein Minimum nur in einer lokal monoton fallenden Umgebung des Startpunktes gefunden werden kann. D.h., der Endpunkt des Pfades hängt bei der Lernregel stark von den Anfangswerten ab und ein gefundendes Minimum ist nicht zwangsweise ein globales Minimum der Errorfunktion.
         \end{enumerate}
   \item
         \begin{enumerate}[label=\alph*)]
-          \item Pfad 1 wurde mit der
-          \item
+          \item \textit{Pfad} 1 wurde mit der Batch-Lernregel und \textit{Pfad 2} mit der inkrementellen Lernregel erzeugt. Der Gradient von \textit{Pfad 1} ist im Gegensatz zu \textit{Pfad 2} eine stetige Funktion, da in jedem Lernschritt die Errorfunktion über den gesamten Trainingsdatensatz berechnet wurde. Für die inkrementelle Lernregel, wird in jedem Lernschritt die Errorfunktion nur über ein Element aus dem Trainingtsdatensatz berechnet.
+          \item Die Lernregel über alle Datenpunkte ist insbesondere bei größeren Datensätzen sehr zeitintensiv. Die inkrementelle Lernregel gewichtet einzelne Extremwerte im Datensatz möglicherweise zu stark.
         \end{enumerate}
+  \item Wenn die Lernrate sehr groß gewählt wird, erreicht der Fehler zwar schnell eine Umgebung des Minimums, springt dann aber über das Minimum und oszilliert um das Minimum herum oder divergiert sogar.
+  \item Die Werte sind nicht linear separierbar, das Klassifizierungsproblem kann also von diesem Netz nicht gelöst werden.
 \end{enumerate}
 
 
