@@ -32,8 +32,8 @@ $$E(w,b)=\frac{1}{2}\sum_{\mu=1}^{M}(T_{\mu}-f(wx_{\mu}+b))^2$$
         \begin{enumerate}[label=\alph*)]
           \item inkrementelle Version:
                 \begin{align*}
-                  w(t+1) & =w(t)-\eta(T_{t}-f(wx_{t}+b)) \cdot f'(wx_{t}+b)\cdot x_t \\
-                  b(t+1) & =b(t)-\eta(T_{t}-f(wx_{t}+b)) \cdot f'(wx_{t}+b)
+                  w(t+1) & =w(t)+\eta(T_{t}-f(wx_{t}+b)) \cdot f'(wx_{t}+b)\cdot x_t \\
+                  b(t+1) & =b(t)+\eta(T_{t}-f(wx_{t}+b)) \cdot f'(wx_{t}+b)
                 \end{align*}
           \item Batch Version:
                 \begin{align*}
