@@ -1,0 +1,48 @@
+\documentclass{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage{enumitem}
+\usepackage{float}
+\usepackage{circuitikz}
+\usepackage{todonotes}
+\usepackage{amsmath}
+\usepackage{tikz}
+\usetikzlibrary{shapes, calc, shapes, arrows}
+\usepackage{svg}
+\usepackage[ngerman]{babel}
+
+\makeatletter
+\newcommand*{\rom}[1]{\expandafter\@slowromancap\romannumeral #1@}
+\makeatother
+
+
+\title{Blatt 5}
+\author{Luca Krüger, Jonas Otto, Jonas Merkle (Gruppe R)}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section{Grundprinzip des Backpropagation-Verfahrens}
+\renewcommand{\arraystretch}{1.7}
+\begin{tabular}{cccc}
+  Schritt & Berechnung        & Benötigte Variablen                                     & Phase   \\
+  \hline
+  1       & $u_1^{(1)}      $ & $w_{11}^{(1)}, w_{21}^{(1)},x_1, x_2$                   & \rom{1} \\
+  \hline
+  2       & $y_1^{(1)}      $ & $u_1^{(1)}, b_1^{(1)}$                                  & \rom{1} \\
+  \hline
+  4       & $u_1^{(2)}      $ & $w_{11}^{(2)}, w_{21}^{(2)},y_1^{(1)},y_2^{(1)}$        & \rom{1} \\
+  \hline
+  4       & $y_1^{(2)}     $  & $u_1^{(2)}, b_1^{(2)}$                                  & \rom{1}        \\
+  \hline
+  5       & $\delta_1^{(2)} $ & $T, y_1^{(2)}$                                 & \rom{2} \\
+  \hline
+  6       & $\delta_1^{(1)} $ & $w_{11}^{(2)}, w_{12}^{(2)}, \delta_1^{(2)}, u_1^{(2)}$ & \rom{3} \\
+  \hline
+  7       & $ w_{11}^{(1)}$   & $x_1, \delta_1^{(1)} $                            & \rom{4}
+\end{tabular}
+
+
+
+\end{document}
