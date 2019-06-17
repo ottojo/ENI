@@ -1,0 +1,173 @@
+\documentclass{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage{enumitem}
+\usepackage{float}2})\cdot (y_2 \cdot (1 - y_2)) x                                                                                                                  \\
+141
+                                                   & = t_1 y_2 x - t_2 x (1 - y_2)                                                                                                                                                                           \\
+142
+                                                   & = t_1 y_2 x - t_2 x + t_2 x y_2                                                                                                                                                                         \\
+143
+                                                   & = (y_2(t_1 + t_2) - t_2) x                                                                                                                                                                              \\
+144
+                                                   & = (y_2 - t_2) x
+145
+                \end{align*}
+146
+​
+147
+          \item Der Ableitungsterm bei quadratischer Fehlerfunktion enthält einen weiteren Faktor $f'(y)$, abhängig von der Übertragungsfunktion $f$.
+148
+        \end{enumerate}
+149
+\end{enumerate}
+150
+\end{document}
+151
+​
+
+\usepackage{circuitikz}
+\usepackage{todonotes}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{tikz}
+\usetikzlibrary{shapes, calc, shapes, arrows}
+\usepackage{svg}
+\usepackage[ngerman]{babel}
+
+\makeatletter
+\newcommand*{\rom}[1]{\expandafter\@slowromancap\romannumeral #1@}
+\makeatother
+
+
+\title{Blatt 6}
+\author{Luca Krüger, Jonas Otto, Jonas Merkle (Gruppe R)}
+\date{\today}
+
+
+\begin{document}
+\maketitle
+
+\section{Cross Entropy}
+
+\begin{enumerate}
+  \item
+        In diesem Beispiel werden beide Eingaben falsch klassifiziert, die jeweils falsche Klassifikation lässt aber keinen Rückschluss auf die tatsächliche Abweichung der Netzausgabe im Vergleich zur gewünschten Klassifikation zu. Die quadratische Fehlerfunktion ist zum Trainieren des Netzes nicht sinnvoll, da z.B. die Klassifikation von $x_2$ nicht unbedingt besser als die von $x_1$ ist. (Klasse 2 ist nicht \glqq näher\grqq an 1 als 2.)
+        \stepcounter{enumi}
+  \item
+        \begin{align*}
+          A(x_1,x_2,x_3,x_4)=\begin{pmatrix}\frac{1}{8}, \frac{1}{2}, \frac{1}{4}, \frac{1}{8}\end{pmatrix} \\
+          B(x_1,x_2,x_3,x_4)=\begin{pmatrix}\frac{1}{2}, \frac{1}{4}, \frac{1}{8}, \frac{1}{8}\end{pmatrix}
+        \end{align*}
+
+        \begin{enumerate}[label=\alph*)]
+          \item
+                \begin{align*}
+                  H_A(B) =\sum_{j=1}^4B(x_j) \log\left(\frac{1}{A(x_j)}\right)=2.375 \ \text{bits}
+                \end{align*}
+          \item
+                \begin{align*}
+                  H_B(A) =\sum_{j=1}^4A(x_j) \log\left(\frac{1}{B(x_j)}\right)=2.25 \ \text{bits}
+                \end{align*}
+          \item \begin{equation*}
+                  H_A(A)=H(A)=1.75
+                \end{equation*}
+          \item
+                \begin{align*}
+                              & D_Q(P) = H_Q(P) -H(P) \\\\
+                  \Rightarrow & D_A(B) = 0.625        \\
+                  \Rightarrow & D_B(A) = 0.5
+                \end{align*}
+        \end{enumerate}
+  \item
+        \begin{enumerate}[label=\\ zu \Roman*):]
+          \item
+                \begin{align*}
+                                                           & \sum_x p(X) = \sum_x q(x) = 1                                                  \\
+                  \overset{\text{Gibb's inequality}}{\iff} & \sum_x p(x) \log_2(\frac{1}{p(x)}) \leq  \sum_x q(x) \log_2(\frac{1}{p(x)})    \\
+                  \iff                                     & 0 \leq \sum_x q(x) \log_2(\frac{1}{p(x)}) - \sum_x p(x) \log_2(\frac{1}{p(x)}) \\
+                  \iff                                     & 0 \leq H_Q(P)-H(P) = d_Q(P) \qed
+                \end{align*}
+          \item
+                \begin{align*}
+                  d_Q(P) = d_P(Q) \iff H_Q(P)-H(P) = H_P(Q) - H(Q)
+                \end{align*}
+                $\Rightarrow$ Widerspruch mit dem obigen Beispiel:\\
+                $H(P) = H(Q)$, aber $H_Q(P) \neq H_P(Q)$
+          \item
+                \begin{align*}
+                  d_Q(Q) = H_Q(Q) - H(Q) = H(Q) -H(Q) = 0 \qed
+                \end{align*}
+        \end{enumerate}
+
+  \item
+        \begin{enumerate}[label=\alph*)]
+          \item Ein Minimum von $D_C(B)$ wird bei $C=B$ erwartet, da dann $D_C(B) = 0$ gilt. Für $C=B$ muss $t=\frac{2}{3}$ gelten.
+          \item (siehe Jupyter Notebook)
+        \end{enumerate}
+\end{enumerate}
+
+\section{Cross Entropy als Kostenfunktion}
+\begin{enumerate}
+  \item
+        \begin{enumerate}[label=\alph*)]
+          \item
+                \begin{align*}
+                  \sum_{i=1}^n y_i = \sum_{i=1}^n \frac{e^{cu_i}}{\sum_{j=1}^n e^{cu_j}} = \frac{\sum_{i=1}^n e^{cu_i}}{\sum_{j=1}^n e^{cu_j}} = 1
+                \end{align*}
+                \begin{equation*}
+                  e^x > 0\ \forall x\in \mathbb{R} \implies y_i \geq 0\ \forall i
+                \end{equation*}
+          \item
+                \begin{align*}
+                  y_1 = \frac{e^{cu_1}}{e^{cu_1}+e^{cu_2}+e^{cu_3}} = \frac{1}{1+e^{c(u_2-u_1)}+e^{c(u_3-u_1)}}
+                \end{align*}
+          \item Grenzwertbetrachtung $c \to \infty$: \\ \\
+                \begin{tabular}{l|l|l}
+                  $\text{Fall I: } u_1 > u_2 > u_3\quad $ & $\text{Fall II: } u_2 > u_1 > u_3\quad $ & $\text{Fall III: } u_2 > u_3 > u_1$  \\
+                  $\lim\limits_{c \to \infty} y_1 = 1$    & $ \lim\limits_{c \to \infty} y_1 = 0$    & $\lim\limits_{c \to \infty} y_1 = 0$
+                \end{tabular}
+          \item Dämpfung der dendritischen Potentiale $u_q,\dots,u_n$ in Abhängigkeit von $c$: \\\\
+                \begin{tabular}{l|l}
+                  $c>0$: & Verteilung über alle $y_i$ in Abhängigkeit von $u_i$           \\
+                  $c=0$: & $y_1= \dots = y_k$ (gleichverteilt)                            \\
+                  $c<0$: & Verteilung über alle $y_i$ in negativer Abhängigkeit von $u_i$
+                \end{tabular}
+
+        \end{enumerate}
+  \item
+        \begin{enumerate}[label= \alph*)]
+          \item Ableitungen der Fehlerfunktion nach der Netzwerkausgabe $y_i$:\\
+                \begin{align*}
+                  \frac{\partial E}{\partial y_1} & = -\frac{t_1}{y_1} \\
+                  \frac{\partial E}{\partial y_2} & = -\frac{t_2}{y_2}
+                \end{align*}
+          \item Ableitungen der Netzwerkausgabe nach dem dendritischen Potential $u_2$:
+                \begin{align*}
+                  y_1 = \frac{e^{u_1}}{e^{u_1} + e^{u_2}}\quad \quad & y_2 = \frac{e^{u_2}}{e^{u_1} + e^{u_2}}
+                \end{align*}
+
+                \begin{align*}
+                  \frac{\partial y_1}{\partial u_2} & = - \frac{e^{u_2}}{(e^{u_1}+e^{u_2})^2} e^{u_2} = - \frac{e^{u_1}}{e^{u_1} + e^{u_2}} \cdot \frac{e^{u_2}}{e^{u_1} + e^{u_2}} = -y_1 y_2     \\
+                  \frac{\partial y_2}{\partial u_2} & = \frac{e^{u_2}}{e^{u_1} + e^{u_2}} - \frac{e^{u_2}}{(e^{u_1} + e^{u_2})^2} \cdot e^{u_2} = y_2 \cdot (1- \frac{e^{u_2}}{e^{u_1} + e^{u_2}}) \\
+                                                    & = y_2 \cdot (1- y_2)
+                \end{align*}
+          \item Ableitung des dentritischen Potentials nach dem Gewicht $w_2$
+                \begin{align*}
+                  u_2 = w_2 x + b_2 \Rightarrow \frac{\partial u_2}{w_2} = x
+                \end{align*}
+          \item Ableitung der Fehlerfunktion nach dem Gewicht $w_2$:
+                \begin{align*}
+                  \frac{\partial E }{\partial w_2} & = \frac{\partial E }{\partial y_1}\frac{\partial y_1}{\partial u_2}\frac{\partial u_2 }{\partial w_2}+\frac{\partial E}{\partial y_2}\frac{\partial y_2}{\partial u_2}\frac{\partial u_2}{\partial w_2} \\
+                                                   & = (-\frac{t_1}{y_1})\cdot(-y_1 y_2)x + (-\frac{t_2}{y_2})\cdot (y_2 \cdot (1 - y_2)) x                                                                                                                  \\
+                                                   & = t_1 y_2 x - t_2 x (1 - y_2)                                                                                                                                                                           \\
+                                                   & = t_1 y_2 x - t_2 x + t_2 x y_2                                                                                                                                                                         \\
+                                                   & = (y_2(t_1 + t_2) - t_2) x                                                                                                                                                                              \\
+                                                   & = (y_2 - t_2) x
+                \end{align*}
+
+          \item Der Ableitungsterm bei quadratischer Fehlerfunktion enthält einen weiteren Faktor $f'(y)$, abhängig von der Übertragungsfunktion $f$.
+        \end{enumerate}
+\end{enumerate}
+\end{document}
