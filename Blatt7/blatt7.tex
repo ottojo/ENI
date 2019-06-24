@@ -1,0 +1,163 @@
+\documentclass{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage{enumitem}
+\usepackage{float}
+\usepackage{circuitikz}
+\usepackage{todonotes}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{tikz}
+\usetikzlibrary{shapes, calc, shapes, arrows}
+\usepackage{svg}
+\usepackage[ngerman]{babel}
+\usetikzlibrary{calc}
+
+
+\makeatletter
+\newcommand*{\rom}[1]{\expandafter\@slowromancap\romannumeral #1@}
+\makeatother
+
+
+\title{Blatt 7}
+\author{Luca Krüger, Jonas Otto, Jonas Merkle (Gruppe R)}
+\date{\today}
+
+\begin{document}
+\maketitle
+\section{Learning Slowdown}
+\begin{enumerate}
+  \item Einfluss der Parameter im zweiten Neuron:
+        \begin{enumerate}[label = \alph*)]
+          \item Initiales Gewicht $w_2 = 0.6$ und Bias $b_2 = 0.9$
+                \begin{align*}
+                  \begin{pmatrix}\frac{\partial E}{\partial w_2} \\ \frac{\partial E}{\partial b_2}\end{pmatrix} = \begin{pmatrix} 0.243877 \\  0.243877\end{pmatrix}
+                \end{align*}
+          \item Initiales Gewicht $w_2 = 2$ und Bias $b_2 = 2$
+                \begin{align*}
+                  \begin{pmatrix}\frac{\partial E}{\partial w_2} \\ \frac{\partial E}{\partial b_2}\end{pmatrix} = \begin{pmatrix} 0.03469 \\  0.03469\end{pmatrix}
+                \end{align*}
+
+          \item Das Gewicht $w_2$ und Bias $b_2$ stehen mit negativem Vorzeichen in der Exponentialfunktion.
+                \begin{align*}
+                  \lim_{w_2,b_2 \to \infty} \nabla E = 0 \lim_{w_2, b_2 \to 0} \nabla E \propto y_1 T_1 + c
+                \end{align*}
+        \end{enumerate}
+  \item
+        \begin{enumerate}[label=\alph*)]
+          \item Einfluss der Parameter im ersten Neuron:
+                \begin{align*}
+                  \frac{\partial E }{\partial b_1}        & = \underbrace{\frac{\partial E}{\partial y_2} \frac{\partial y_2}{\partial u_2}}_{\text{alt}} \frac{\partial u_2}{\partial y_1} \frac{\partial y_1}{\partial u_1} \frac{\partial u_1}{\partial b_1} \\
+                                                          & = -2(T-y_2) \cdot f'(u_2) \cdot w_2 \cdot f'(u_1)                                                                                                                                                   \\
+                  \frac{\partial u_2}{\partial y_1} = w_2 & \qquad \frac{\partial u_1}{\partial b_1} = 1 = \textit{const.}                                                                                                                                      \\
+                \end{align*}
+                Problematisch ist wieder:
+                \begin{align*}
+                  \frac{\partial y_1}{\partial u_1} = f'(u_1) = f(u_1)(1-f(u_1)) = f(u_1) \underbrace{(1-\frac{1}{1+e^{-u_1}})}_{\to 0\ \text{für}\ u_1 \to \infty}
+                \end{align*}
+                $\Rightarrow$ das Problem verstärkt sich mit dem ersten Neuron.
+
+          \item Das Problem entsteht aus der Mehrfachanwendung der Kettenregel und verstärkt sich mit jeder zusätzlichen Zwischenschicht.
+          \item Der Gradient Descent Algorithmus zur Bestimmung eines lokalen Minimums ist im jeweiligen Iterationsschritt direkt abhängig vom Gradienten der Errorfunktion. Die Suche nach einem lokalen Minimum erfolgt also in Schritten, wobei die Schrittweite $d \propto \nabla E$ dem Gradienten der Errorfunktion.
+        \end{enumerate}
+  \item
+        \begin{enumerate}[label=\alph*)]
+          \item
+                \begin{align*}
+                  \frac{\partial E}{\partial b_2} = \frac{1}{4}
+                \end{align*}
+                \begin{align*}
+                  \frac{\partial E}{\partial b_1} = 12.5
+                \end{align*}
+          \item \todo[inline]{Abschätzung mit weiteren Zwischenschichten}
+                % Also wegen mir reicht das so:
+                In jedem Schritt kommt durch weiteres Ableiten der Faktor $f'(0)^2*100=12.5$ hinzu.
+          \item \todo[inline]{}(Divergenz)
+                Der Gradient divergiert. Dies führt zu Problemen wenn der Fehler bereits gering ist, aber der noch sehr große Gradient eine Konvergenz im Minimum verhindert.
+        \end{enumerate}
+  \item \todo[inline]{}
+\end{enumerate}
+
+\section{Flat vs. Deep Networks}
+\begin{enumerate}
+  \item
+        \begin{enumerate}[label=\alph*)]
+          \item Simulation für $x = (0,0)$ und $y=(1,1)$.
+                Netzwerkausgabe:
+                \begin{align*}
+                  u_{11} = 1 < 2 \qquad u_{12} = 1 < 2 \\
+                  y_{11} = 0 \qquad y_{12} = 0         \\
+                  u_{21} = 0 \qquad u_{22} = 0         \\
+                  y_{21} = f(x,y) = 0
+                \end{align*}
+                Ergebnis aus Gleichung 4:
+                \begin{align*}
+                  f(x,y) = \langle x,y \rangle \text{mod} 2 = 0
+                \end{align*}
+                $\implies$ Netzwerkausgabe korrekt
+
+          \item
+                Die Zahlen in den Neuronen stellen jeweils den Schwellwert dar, unbeschriftete Pfeile kennzeichnen Gewicht 1.\\\\
+                \tikzstyle{inputneuron} = [draw, rectangle, minimum height=4em, minimum width=2em]
+                \begin{tikzpicture}
+                  \node[inputneuron](x) at (0,0){};
+                  \node[left = .5 of x, yshift=1em](x1){$x_1$};
+                  \draw (x1) -- ($(x)+(0,1em)$) node[circle, fill, inner sep=2pt]{};
+                  \node[left = .5 of x](x2){$x_2$};
+                  \draw (x2) -- ($(x)-(0,0em)$) node[circle, fill, inner sep=2pt]{};
+                  \node[left = .5 of x, yshift=-1em](x3){$x_3$};
+                  \draw (x3) -- ($(x)-(0,1em)$) node[circle, fill, inner sep=2pt]{};
+
+                  \node[inputneuron](y) at (0,-2){};
+                  \node[left = .5 of y, yshift=1em](y1){$y_1$};
+                  \draw (y1) -- ($(y)+(0,1em)$) node[circle, fill, inner sep=2pt]{};
+                  \node[left = .5 of y](y2){$y_2$};
+                  \draw (y2) -- ($(y)-(0,0em)$) node[circle, fill, inner sep=2pt]{};
+                  \node[left = .5 of y, yshift=-1em](y3){$y_3$};
+                  \draw (y3) -- ($(y)-(0,1em)$) node[circle, fill, inner sep=2pt]{};
+
+
+
+                  \node[draw,circle,minimum size=40pt,inner sep=0pt](n11) at (3,1){2};
+                  \node[draw,circle,minimum size=40pt,inner sep=0pt](n12) at (3,-1){2};
+                  \node[draw,circle,minimum size=40pt,inner sep=0pt](n13) at (3,-3){2};
+
+                  \node[draw,circle,minimum size=40pt,inner sep=0pt](n21) at (6,1){1};
+                  \node[draw,circle,minimum size=40pt,inner sep=0pt](n22) at (6,-1){2};
+                  \node[draw,circle,minimum size=40pt,inner sep=0pt](n23) at (6,-3){3};
+
+                  \node[draw,circle,minimum size=40pt,inner sep=0pt](n3) at (9,-1){0.5};
+
+                  \draw[->, thick] ($(x.east)+(0,1em)$) -- (n11);
+                  \draw[->, thick] (x.east) -- (n12);
+                  \draw[->, thick] ($(x.east)-(0,1em)$) -- (n13);
+
+                  \draw[->, thick] ($(y.east)+(0,1em)$) -- (n11);
+                  \draw[->, thick] (y.east) -- (n12);
+                  \draw[->, thick] ($(y.east)-(0,1em)$) -- (n13);
+
+                  \draw[->, thick] (n11) -- (n21);
+                  \draw[->, thick] (n11) -- (n22);
+                  \draw[->, thick] (n11) -- (n23);
+
+                  \draw[->, thick] (n12) -- (n21);
+                  \draw[->, thick] (n12) -- (n22);
+                  \draw[->, thick] (n12) -- (n23);
+
+                  \draw[->, thick] (n13) -- (n21);
+                  \draw[->, thick] (n13) -- (n22);
+                  \draw[->, thick] (n13) -- (n23);
+
+                  \draw[->, thick] (n21) -- (n3) node[midway, above]{1};
+                  \draw[->, thick] (n22) -- (n3) node[midway, above]{-1};
+                  \draw[->, thick] (n23) -- (n3) node[midway, above]{1};
+
+                \end{tikzpicture}
+
+          \item Die Neuronen in der ersten Schicht realisieren ein logisches \texttt{AND} der einzelnen Komponenten der beiden Eingangsvektoren.
+          Die zweite Schicht \glqq zählt \grqq, welche Neuronen aus der ersten Schickt aktiv sind indem jedes Neuron ein logisches \texttt{OR} implementiert.
+        \end{enumerate}
+\end{enumerate}
+
+\end{document}
