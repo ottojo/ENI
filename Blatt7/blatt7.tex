@@ -70,13 +70,12 @@
                 \begin{align*}
                   \frac{\partial E}{\partial b_1} = 12.5
                 \end{align*}
-          \item \todo[inline]{Abschätzung mit weiteren Zwischenschichten}
-                % Also wegen mir reicht das so:
+                \item \label{problem1}% Also wegen mir reicht das so:
                 In jedem Schritt kommt durch weiteres Ableiten der Faktor $f'(0)^2*100=12.5$ hinzu.
-          \item \todo[inline]{}(Divergenz)
+          \item (Divergenz)
                 Der Gradient divergiert. Dies führt zu Problemen wenn der Fehler bereits gering ist, aber der noch sehr große Gradient eine Konvergenz im Minimum verhindert.
         \end{enumerate}
-  \item \todo[inline]{}
+  \item In der Ausgabeschicht ist die Ableitung der Cross-Entropy Funktion $E_c$ nicht mehr direkt abhängig von $f'(x)$. Auch die Zwischenschichten werden weniger durch $f'(x)$ beeinflusst. Das Problem aus \ref{problem1} wird dadurch reduziert.
 \end{enumerate}
 
 \section{Flat vs. Deep Networks}
@@ -93,7 +92,7 @@
                 \end{align*}
                 Ergebnis aus Gleichung 4:
                 \begin{align*}
-                  f(x,y) = \langle x,y \rangle \text{mod} 2 = 0
+                  f(x,y) = \langle x,y \rangle \ \text{mod}\ 2 = 0
                 \end{align*}
                 $\implies$ Netzwerkausgabe korrekt
 
