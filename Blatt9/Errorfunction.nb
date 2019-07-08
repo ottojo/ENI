@@ -1,0 +1,261 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 11.3' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[      9816,        253]
+NotebookOptionsPosition[      8676,        226]
+NotebookOutlinePosition[      9015,        241]
+CellTagsIndexPosition[      8972,        238]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[
+ RowBox[{"SetDirectory", "[", 
+  RowBox[{"NotebookDirectory", "[", "]"}], "]"}]], "Input",
+ CellLabel->"In[51]:=",ExpressionUUID->"2a7fc897-8cb6-474f-b3ab-6577dbd6b43c"],
+
+Cell[BoxData["\<\"/home/documents/uni-ulm/Semester4/neuroinformatik/ENI/\
+Blatt9\"\>"], "Output",
+ CellChangeTimes->{{3.771601158732053*^9, 3.77160118278587*^9}, 
+   3.771602254533663*^9},
+ CellLabel->"Out[51]=",ExpressionUUID->"08051948-1d8b-4379-9eed-168e1cc75f4d"]
+}, Open  ]],
+
+Cell[BoxData[""], "Input",
+ CellChangeTimes->{{3.77160118940781*^9, 
+  3.771601191255979*^9}},ExpressionUUID->"23211448-ffe3-4eca-9d07-\
+dccbc76f1b21"],
+
+Cell[BoxData[{
+ RowBox[{"x", ":=", 
+  RowBox[{"{", 
+   RowBox[{
+    RowBox[{"-", "1"}], ",", "0", ",", "1", ",", "2"}], "}"}]}], "\n", 
+ RowBox[{"T", ":=", 
+  RowBox[{"{", 
+   RowBox[{"0", ",", "1", ",", "0", ",", "0"}], "}"}]}], "\n", 
+ RowBox[{
+  RowBox[{"f", "[", "t_", "]"}], ":=", 
+  RowBox[{"1", "/", 
+   RowBox[{"(", 
+    RowBox[{"1", "+", 
+     RowBox[{"Exp", "[", 
+      RowBox[{"-", "t"}], "]"}]}], ")"}]}]}], "\n", 
+ RowBox[{
+  RowBox[{"error", "[", 
+   RowBox[{"w_", ",", "b_", ",", "\[Lambda]_"}], "]"}], ":=", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"(", 
+     RowBox[{"1", "/", "2"}], ")"}], "*", 
+    RowBox[{"Sum", "[", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{"T", "[", 
+          RowBox[{"[", "\[Mu]", "]"}], "]"}], "-", 
+         RowBox[{"f", "[", 
+          RowBox[{
+           RowBox[{"w", "*", 
+            RowBox[{"x", "[", 
+             RowBox[{"[", "\[Mu]", "]"}], "]"}]}], "+", "b"}], "]"}]}], ")"}],
+        "^", "2"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"\[Mu]", ",", "1", ",", "M"}], "}"}]}], "]"}]}], "+", 
+   RowBox[{
+    RowBox[{"(", 
+     RowBox[{"\[Lambda]", "/", "2"}], ")"}], "*", 
+    RowBox[{
+     RowBox[{"Abs", "[", "w", "]"}], "^", "2"}]}]}]}], "\n", 
+ RowBox[{"M", ":=", 
+  RowBox[{"Length", "[", "x", "]"}]}], "\n", 
+ RowBox[{"w0", ":=", 
+  RowBox[{"-", "1"}]}], "\n", 
+ RowBox[{"b0", ":=", "3"}]}], "Input",
+ CellChangeTimes->{
+  3.771601201459785*^9, {3.771601271112534*^9, 3.771601305072197*^9}, {
+   3.771601359171074*^9, 3.7716013656722803`*^9}, {3.771601618257268*^9, 
+   3.7716016209665813`*^9}},
+ CellLabel->"In[36]:=",ExpressionUUID->"5ad36367-8500-4506-b3a6-fe6370374265"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Manipulate", "[", "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"Plot3D", "[", 
+    RowBox[{
+     RowBox[{"error", "[", 
+      RowBox[{"w", ",", "b", ",", "\[Lambda]"}], "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"w", ",", 
+       RowBox[{"-", "5"}], ",", "5"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"b", ",", 
+       RowBox[{"-", "5"}], ",", "5"}], "}"}], ",", 
+     RowBox[{"Mesh", "\[Rule]", "All"}], ",", 
+     RowBox[{"AxesLabel", "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{"\"\<w\>\"", ",", "\"\<b\>\"", ",", "\"\<E(w,b)\>\""}], 
+       "}"}]}]}], "]"}], ",", "\[IndentingNewLine]", 
+   RowBox[{"{", 
+    RowBox[{"\[Lambda]", ",", "0", ",", "1"}], "}"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.771601319682177*^9, 3.771601423662887*^9}, {
+   3.771601518786853*^9, 3.7716015796950912`*^9}, 3.77160163068216*^9, {
+   3.771602126127018*^9, 3.771602152235688*^9}},
+ CellLabel->"In[50]:=",ExpressionUUID->"19b83273-b995-4bf0-958a-1575d7f405b7"],
+
+Cell[BoxData[
+ TagBox[
+  StyleBox[
+   DynamicModuleBox[{$CellContext`\[Lambda]$$ = 0., Typeset`show$$ = True, 
+    Typeset`bookmarkList$$ = {}, Typeset`bookmarkMode$$ = "Menu", 
+    Typeset`animator$$, Typeset`animvar$$ = 1, Typeset`name$$ = 
+    "\"untitled\"", Typeset`specs$$ = {{
+      Hold[$CellContext`\[Lambda]$$], 0, 1}}, Typeset`size$$ = {
+    360., {130., 136.}}, Typeset`update$$ = 0, Typeset`initDone$$, 
+    Typeset`skipInitDone$$ = True, $CellContext`\[Lambda]$29556$$ = 0}, 
+    DynamicBox[Manipulate`ManipulateBoxes[
+     1, StandardForm, "Variables" :> {$CellContext`\[Lambda]$$ = 0}, 
+      "ControllerVariables" :> {
+        Hold[$CellContext`\[Lambda]$$, $CellContext`\[Lambda]$29556$$, 0]}, 
+      "OtherVariables" :> {
+       Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+        Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+        Typeset`specs$$, Typeset`size$$, Typeset`update$$, Typeset`initDone$$,
+         Typeset`skipInitDone$$}, "Body" :> Plot3D[
+        $CellContext`error[$CellContext`w, $CellContext`b, $CellContext`\
+\[Lambda]$$], {$CellContext`w, -5, 5}, {$CellContext`b, -5, 5}, Mesh -> All, 
+        AxesLabel -> {"w", "b", "E(w,b)"}], 
+      "Specifications" :> {{$CellContext`\[Lambda]$$, 0, 1}}, "Options" :> {},
+       "DefaultOptions" :> {}],
+     ImageSizeCache->{407., {174., 181.}},
+     SingleEvaluation->True],
+    Deinitialization:>None,
+    DynamicModuleValues:>{},
+    SynchronousInitialization->True,
+    UndoTrackedVariables:>{Typeset`show$$, Typeset`bookmarkMode$$},
+    UnsavedVariables:>{Typeset`initDone$$},
+    UntrackedVariables:>{Typeset`size$$}], "Manipulate",
+   Deployed->True,
+   StripOnInput->False],
+  Manipulate`InterpretManipulate[1]]], "Output",
+ CellChangeTimes->{
+  3.771601426112836*^9, 3.7716014894581757`*^9, {3.771601533218115*^9, 
+   3.7716015801660013`*^9}, {3.771601624225638*^9, 3.771601631083879*^9}, {
+   3.771602128126418*^9, 3.771602152815651*^9}},
+ CellLabel->"Out[50]=",ExpressionUUID->"8784cf81-e139-4555-a40a-fdc3b7539277"]
+}, Open  ]],
+
+Cell["2D mit b=0:", "Text",
+ CellChangeTimes->{{3.771602163977186*^9, 
+  3.771602169768777*^9}},ExpressionUUID->"7b2335e9-1e99-41aa-96ad-\
+b478e8b20322"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Manipulate", "[", "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"Plot", "[", 
+    RowBox[{
+     RowBox[{"error", "[", 
+      RowBox[{"w", ",", "0", ",", "\[Lambda]"}], "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"w", ",", 
+       RowBox[{"-", "5"}], ",", "5"}], "}"}], ",", 
+     RowBox[{"AxesLabel", "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{"\"\<w\>\"", ",", "\"\<E(w,b)\>\""}], "}"}]}]}], "]"}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{"{", 
+    RowBox[{"\[Lambda]", ",", "0", ",", "1"}], "}"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.771602098875072*^9, 3.771602145434778*^9}},
+ CellLabel->"In[49]:=",ExpressionUUID->"f8e14303-b6b5-4bb4-8e68-f879b1712f27"],
+
+Cell[BoxData[
+ TagBox[
+  StyleBox[
+   DynamicModuleBox[{$CellContext`\[Lambda]$$ = 0, Typeset`show$$ = True, 
+    Typeset`bookmarkList$$ = {}, Typeset`bookmarkMode$$ = "Menu", 
+    Typeset`animator$$, Typeset`animvar$$ = 1, Typeset`name$$ = 
+    "\"untitled\"", Typeset`specs$$ = {{
+      Hold[$CellContext`\[Lambda]$$], 0, 1}}, Typeset`size$$ = {
+    360., {116., 123.}}, Typeset`update$$ = 0, Typeset`initDone$$, 
+    Typeset`skipInitDone$$ = True, $CellContext`\[Lambda]$29279$$ = 0}, 
+    DynamicBox[Manipulate`ManipulateBoxes[
+     1, StandardForm, "Variables" :> {$CellContext`\[Lambda]$$ = 0}, 
+      "ControllerVariables" :> {
+        Hold[$CellContext`\[Lambda]$$, $CellContext`\[Lambda]$29279$$, 0]}, 
+      "OtherVariables" :> {
+       Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+        Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+        Typeset`specs$$, Typeset`size$$, Typeset`update$$, Typeset`initDone$$,
+         Typeset`skipInitDone$$}, "Body" :> Plot[
+        $CellContext`error[$CellContext`w, 
+         0, $CellContext`\[Lambda]$$], {$CellContext`w, -5, 5}, 
+        AxesLabel -> {"w", "E(w,b)"}], 
+      "Specifications" :> {{$CellContext`\[Lambda]$$, 0, 1}}, "Options" :> {},
+       "DefaultOptions" :> {}],
+     ImageSizeCache->{407., {161., 168.}},
+     SingleEvaluation->True],
+    Deinitialization:>None,
+    DynamicModuleValues:>{},
+    SynchronousInitialization->True,
+    UndoTrackedVariables:>{Typeset`show$$, Typeset`bookmarkMode$$},
+    UnsavedVariables:>{Typeset`initDone$$},
+    UntrackedVariables:>{Typeset`size$$}], "Manipulate",
+   Deployed->True,
+   StripOnInput->False],
+  Manipulate`InterpretManipulate[1]]], "Output",
+ CellChangeTimes->{{3.771602106572907*^9, 3.771602148293972*^9}},
+ CellLabel->"Out[49]=",ExpressionUUID->"6d8a4f17-be54-4fff-8972-d2db636fa3f1"]
+}, Open  ]]
+},
+WindowSize->{1276, 1390},
+WindowMargins->{{-2558, Automatic}, {Automatic, 25}},
+FrontEndVersion->"11.3 for Linux x86 (64-bit) (March 6, 2018)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 183, 3, 31, "Input",ExpressionUUID->"2a7fc897-8cb6-474f-b3ab-6577dbd6b43c"],
+Cell[766, 27, 267, 4, 35, "Output",ExpressionUUID->"08051948-1d8b-4379-9eed-168e1cc75f4d"]
+}, Open  ]],
+Cell[1048, 34, 151, 3, 31, "Input",ExpressionUUID->"23211448-ffe3-4eca-9d07-dccbc76f1b21"],
+Cell[1202, 39, 1672, 51, 170, "Input",ExpressionUUID->"5ad36367-8500-4506-b3a6-fe6370374265"],
+Cell[CellGroupData[{
+Cell[2899, 94, 987, 23, 78, "Input",ExpressionUUID->"19b83273-b995-4bf0-958a-1575d7f405b7"],
+Cell[3889, 119, 2040, 39, 374, "Output",ExpressionUUID->"8784cf81-e139-4555-a40a-fdc3b7539277"]
+}, Open  ]],
+Cell[5944, 161, 153, 3, 36, "Text",ExpressionUUID->"7b2335e9-1e99-41aa-96ad-b478e8b20322"],
+Cell[CellGroupData[{
+Cell[6122, 168, 697, 17, 78, "Input",ExpressionUUID->"f8e14303-b6b5-4bb4-8e68-f879b1712f27"],
+Cell[6822, 187, 1838, 36, 348, "Output",ExpressionUUID->"6d8a4f17-be54-4fff-8972-d2db636fa3f1"]
+}, Open  ]]
+}
+]
+*)
+
