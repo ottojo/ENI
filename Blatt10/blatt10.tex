@@ -49,12 +49,12 @@ Vorzeichen der Gewichte:
   \tikzstyle{stateTransition}=[->, thick]
   \begin{tikzpicture}
 
-    \node[draw,circle,minimum size=40pt,inner sep=0pt] (s11) at (0,3) {$\text{sig}(x)$};
-    \node[draw,circle,minimum size=40pt,inner sep=0pt] (s12) at (0,1) {$\text{sig}(x)$};
-    \node[draw,circle,minimum size=40pt,inner sep=0pt] (s13) at (0,-1) {$\text{sig}(x)$};
-    \node[draw,circle,minimum size=40pt,inner sep=0pt] (s14) at (0,-3) {$\text{sig}(x)$};
-    \node[draw,circle,minimum size=40pt,inner sep=0pt] (s21) at (3,1) {$\text{sig}(x)$};
-    \node[draw,circle,minimum size=40pt,inner sep=0pt] (s22) at (3,-1) {$\text{sig}(x)$};
+\node[draw,circle,minimum size=40pt,inner sep=0pt] (s11) at (0,3) {$\tanh(x)$};
+\node[draw,circle,minimum size=40pt,inner sep=0pt] (s12) at (0,1) {$\tanh(x)$};
+\node[draw,circle,minimum size=40pt,inner sep=0pt] (s13) at (0,-1){$\tanh(x)$};
+\node[draw,circle,minimum size=40pt,inner sep=0pt] (s14) at (0,-3){$\tanh(x)$};
+\node[draw,circle,minimum size=40pt,inner sep=0pt] (s21) at (3,1) {$\tanh(x)$};
+\node[draw,circle,minimum size=40pt,inner sep=0pt] (s22) at (3,-1){$\tanh(x)$};
 
 
     \draw[stateTransition,red] (s11) to[] node [pos=.7,above=5pt] {} (s21);
@@ -87,12 +87,12 @@ Vorzeichen der Gewichte:
   \tikzstyle{stateTransition}=[->, thick]
   \begin{tikzpicture}
 
-    \node[draw,circle,minimum size=40pt,inner sep=0pt] (s11) at (0,3) {$\tanh(x)$};
-    \node[draw,circle,minimum size=40pt,inner sep=0pt] (s12) at (0,1) {$\tanh(x)$};
-    \node[draw,circle,minimum size=40pt,inner sep=0pt] (s13) at (0,-1) {$\tanh(x)$};
-    \node[draw,circle,minimum size=40pt,inner sep=0pt] (s14) at (0,-3) {$\tanh(x)$};
-    \node[draw,circle,minimum size=40pt,inner sep=0pt] (s21) at (3,1) {$\tanh(x)$};
-    \node[draw,circle,minimum size=40pt,inner sep=0pt] (s22) at (3,-1) {$\tanh(x)$};
+\node[draw,circle,minimum size=40pt,inner sep=0pt] (s11) at (0,3)  {$\sig(x)$};
+\node[draw,circle,minimum size=40pt,inner sep=0pt] (s12) at (0,1)  {$\sig(x)$};
+\node[draw,circle,minimum size=40pt,inner sep=0pt] (s13) at (0,-1) {$\sig(x)$};
+\node[draw,circle,minimum size=40pt,inner sep=0pt] (s14) at (0,-3) {$\sig(x)$};
+\node[draw,circle,minimum size=40pt,inner sep=0pt] (s21) at (3,1)  {$\sig(x)$};
+\node[draw,circle,minimum size=40pt,inner sep=0pt] (s22) at (3,-1) {$\sig(x)$};
 
 
     \draw[stateTransition,red] (s11) to[] node [pos=.7,above=5pt] {} (s21);
@@ -123,14 +123,14 @@ Vorzeichen der Gewichte:
 \item
 \begin{enumerate}[label=\alph*)]
 \item
-Unter der Verwendung von \textit{Rectified Linear Units} ist für dentritische Potential $u<0$ die Ausgabe des Neurons $y=0$ sowie der Gradient $\frac{\partial E}{\partial w}=0$. Dadurch kommt es bei dem Neuron zu einem \textit{Learning Slowdown}. Dieses Verhalten propagiert sich außerdem durch vorhergehende Schichten im Netzwerk.
+Unter der Verwendung von \textit{Rectified Linear Units} ist für dentritische Potential $u<0$ die Ausgabe des Neurons $y=0$ sowie der Gradient $\frac{\partial E}{\partial w}=0$. Dadurch kommt es bei dem Neuron zu einem \textit{Learning Slowdown}. Dieses Verhalten propagiert sich außerdem durch vorhergehende Schichten im Netzwerk. Für $u>0$ ist der Gradient konstant.
 \item
 $\tanh(x)$ erfordert aufgrund der komplexen Berechnung von Winkelfunktionen einen hohen Rechenaufwand.
 Die Performance des Lernvorgang ist daher wahrscheinlich erheblich besser, wenn eine weniger komplexe Funktion wie $\text{ReLU}(x)$ verwendet wird.
 \item
 Für $u_i<0$ gilt:
 \begin{align*}
-\relu(u_i)=y_i^{(1)}=0 \ \Rightarrow \ \frac{\partial E}{\partial w_{ij}}=\delta_j^{(2)} y_i^{(1)}=0 \\
+\relu(u_i)=y_i^{(1)}=0 \ \Rightarrow \ \frac{\partial E}{\partial w_{ij}^{(2)}}=\delta_j^{(2)} f'(u_j^{(2)}) y_i^{(2)}=0 \\
 \end{align*}
 In der Regel ist der rückwärts propagierte Fehler $\delta_i^{(k)} \propto f'(u_i^{(k+1)})$, wonach in unserem Fall ($u_i<0$) und $\relu'(u_i^{(k+1)})=0$ auch Lernschritte vorheriger Neuronen blockiert werden.\\
 Für $\leakyrelu(x)$ als Transferfunktion treten diese Probleme nicht auf, da für den Fall $u_i<0$ gilt:
@@ -140,7 +140,8 @@ Für $\leakyrelu(x)$ als Transferfunktion treten diese Probleme nicht auf, da f�
 \end{enumerate}
 \item
 \begin{enumerate}[label=\alph*)]
-\item $\leakyrelu(x)$ ist in einer kleinen Umgebung von $x=0$ stark asymmetrisch. Somit ist die Klassifiezierung im Neuron wesentlich fehleranfälliger gegenüber einem Rauschen.\\
+\item \elu'(x) ist stetig in $x=0$.\\
+$\leakyrelu(x)$ ist in einer kleinen Umgebung von $x=0$ stark asymmetrisch. Somit ist die Klassifiezierung im Neuron wesentlich fehleranfälliger gegenüber einem Rauschen.\\
 Außerdem gilt
 \begin{align*}
 \lim_{x\to \infty} \leakyrelu(x) = -\infty
